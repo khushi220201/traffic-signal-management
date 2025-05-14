@@ -25,17 +25,6 @@ export const saveConfig = async (data: ITrafficSignalConfig) => {
   });
 };
 
-
-export const getAllConfigs = async () => {
-  return await prisma.trafficSignalConfig.findMany();
-};
-
-export const getConfigById = async (id: string) => {
-  return await prisma.trafficSignalConfig.findUnique({
-    where: { id },
-  });
-};
-
 export const getConfigsByType = async (intersectionType: IntersectionType) => {
   return await prisma.trafficSignalConfig.findUnique({
     where: { intersectionType },

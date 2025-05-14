@@ -12,13 +12,14 @@ import Intersection1 from "./components/Intersaction1";
 import Intersection2 from "./components/Intersaction2";
 import Intersection3 from "./components/Intersaction3";
 import Intersection4 from "./components/Intersaction4";
+import SignalsLayout from "./components/SignalLayout";
 
 const { TabPane } = Tabs;
 
 function App() {
   return (
     <div className="app-container">
-      <Tabs defaultActiveKey="1" type="card" centered>
+      <Tabs defaultActiveKey="1" type="card" centered destroyOnHidden>
         <TabPane
           tab={
             <span>
@@ -71,11 +72,7 @@ function App() {
           }
           key="5"
         >
-          <div
-            style={{ padding: "16px", textAlign: "center", fontSize: "16px" }}
-          >
-            Signal settings or visualizations will appear here.
-          </div>
+          <SignalsLayout />
         </TabPane>
       </Tabs>
     </div>

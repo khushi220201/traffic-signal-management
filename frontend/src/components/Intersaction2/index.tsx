@@ -2,12 +2,14 @@ import { Card, Form, message } from "antd";
 import React, { useEffect } from "react";
 import { getApi, postApi } from "../../utils/api";
 import SignalInputForm from "../global/SignalInputForm";
+import { IntersectionTypes, ISignalFormValues } from "../../interfaces";
 
 const Intersaction2 = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = React.useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: ISignalFormValues) => {
     try {
       setLoading(true);
       const data = {
@@ -15,13 +17,15 @@ const Intersaction2 = () => {
         signal2Time: Number(values.signal2),
         signal3Time: Number(values.signal3),
         signal4Time: Number(values.signal4),
-        intersectionType: "FOUR_WAY_TYPE1",
+        intersectionType: IntersectionTypes.FOUR_WAY_TYPE1,
       };
       const response = await postApi("/traffic-signal-configs", data);
-      message.success("Form submitted successfully!");
-      console.log("API Response:", response.data);
+      messageApi.success(
+        response.data.message ||
+          "Traffic signal configuration has been successfully applied."
+      );
     } catch (error) {
-      message.error("Failed to submit form. Please try again.");
+      messageApi.error("Failed to config time. Please try again.");
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -30,7 +34,9 @@ const Intersaction2 = () => {
 
   const fetchInitialValues = async () => {
     try {
-      const response = await getApi("/traffic-signal-configs/type/FOUR_WAY_TYPE1");
+      const response = await getApi(
+        "/traffic-signal-configs/type/FOUR_WAY_TYPE1"
+      );
       const data = response.data.data;
       form.setFieldsValue({
         signal1: data.signal1Time,
@@ -49,14 +55,20 @@ const Intersaction2 = () => {
   }, []);
 
   return (
-    <Card title="4 Way Intersection (Type-1) Signals" className="intersection-card">
-       <SignalInputForm
-        signalCount={4}
-        loading={loading}
-        form={form}
-        onFinish={onFinish}
-      />
-    </Card>
+    <>
+      {contextHolder}
+      <Card
+        title="4 Way Intersection (Type-1) Signals"
+        className="intersection-card"
+      >
+        <SignalInputForm
+          signalCount={4}
+          loading={loading}
+          form={form}
+          onFinish={onFinish}
+        />
+      </Card>
+    </>
   );
 };
 

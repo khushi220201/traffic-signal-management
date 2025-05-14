@@ -62,3 +62,88 @@
 .form-submit {
   margin: 16px 0;
 }
+
+.ant-tabs-top >.ant-tabs-nav{
+  margin: 0;
+}
+
+.visualizer-container {
+  width: 100%;
+  min-height: 100%;
+  background: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex: 1;
+}
+
+.visualizer-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  max-height: calc(100vh - 145px);
+  min-height: 0;
+  margin: 0 auto;
+  position: relative;
+  overflow: visible;
+}
+
+.signal-wrapper {
+  width: 100%;
+  height: calc(100vh - 100px);
+  max-width: 900px;
+  position: relative;
+  margin: 0 auto;
+  overflow: visible;
+  display: block;
+}
+
+.visualizer-card {
+  max-width: 600px;
+  margin: 10px auto;
+  padding: 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.signal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signal-label {
+  margin-bottom: 4px;
+  font-weight: bold;
+  background: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.signal-body {
+  width: 50px;
+  height: 120px;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 6px;
+}
+
+.signal-timer {
+  margin-top: 4px;
+  padding: 2px 6px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+}

@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+# Traffic Signal Management System - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend of the Traffic Signal Management System, built using React, TypeScript, and Ant Design. The frontend communicates with the backend API to manage and display traffic signal configurations for different intersections.
 
-## Available Scripts
+## Features
+- Displays traffic signal configurations based on different intersection types.
+- Allows users to view traffic signal configurations from the backend.
+- User-friendly interface with Ant Design components for consistent UI elements.
+- Dropdown for selecting intersection types and visualizing related traffic signal configurations.
 
-In the project directory, you can run:
+## Tech Stack
+- **React.js** - JavaScript library for building user interfaces.
+- **TypeScript** - Adds static typing to JavaScript, providing better code quality.
+- **Ant Design** - A design system and React UI components library.
+- **Axios** - HTTP client for making requests to the backend API.
+- **React Router** - Routing library for navigation between different views.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 1. Clone the repository
+```bash
+git clone https://github.com/khushi220201/traffic-signal-management.git
+cd frontend
+```
+### 2. Install dependencies
+npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 3. Setup environment variables
+Create a .env file in the root of the project to store environment-specific variables (e.g., backend API URL). Example:
+REACT_APP_API_URL="http://localhost:8000"
 
-### `npm test`
+### 4. Start the development server
+Run the following command to start the frontend development server:
+npm start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 5. The app will be available at:
+http://localhost:3000
 
-### `npm run build`
+### 6. API Endpoints
+The frontend communicates with the backend API to fetch traffic signal configurations. API endpoints used:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+POST /traffic-signal-configs
+Create or update configurations for a specific intersection type.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+GET /traffic-signal-configs/type/:intersectionType
+Fetch configurations for a specific intersection type.
+Valid types: "THREE_WAY", "FOUR_WAY_TYPE1", "FOUR_WAY_TYPE2", "FIVE_WAY"
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 7.  How to Use the App
 
-### `npm run eject`
+To use the app effectively:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+First, navigate to the configuration tabs and set up the following intersection types in order:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3 Way (THREE_WAY)
+4 Way Type 1 (FOUR_WAY_TYPE1)
+4 Way Type 2 (FOUR_WAY_TYPE2)
+5 Way (FIVE_WAY)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Then, go to the Signal tab (Visualize Traffic Signals).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Select a specific intersection type from the dropdown.
 
-## Learn More
+Click on the “Start Signal” button to begin the signal timing sequence.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+⚠️ If a configuration has not been set up, the app will use a default signal time of 30 seconds for each light.

@@ -20,7 +20,7 @@ const SignalInputForm: React.FC<SignalInputFormProps> = ({
       return (
         <Form.Item
           key={signalKey}
-          label={`Signal ${index + 1}`}
+          label={`Signal ${index + 1} Time`}
           name={signalKey}
           rules={[
             { required: true, message: `Please input signal ${index + 1}!` },
@@ -29,9 +29,15 @@ const SignalInputForm: React.FC<SignalInputFormProps> = ({
                 if (value === "" || value === undefined)
                   return Promise.resolve();
                 const num = Number(value);
-                return isNaN(num)
-                  ? Promise.reject("Please enter a valid number!")
-                  : Promise.resolve();
+                if (isNaN(num)) {
+                  return Promise.reject("Please enter a valid number!");
+                }
+                if (num < 10 || num > 300) {
+                  return Promise.reject(
+                    "Time must be between 10 and 300 seconds!"
+                  );
+                }
+                return Promise.resolve();
               },
             },
           ]}

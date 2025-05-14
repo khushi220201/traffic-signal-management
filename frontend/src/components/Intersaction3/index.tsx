@@ -2,12 +2,15 @@ import { Card, Form, message } from "antd";
 import React, { useEffect } from "react";
 import { getApi, postApi } from "../../utils/api";
 import SignalInputForm from "../global/SignalInputForm";
+import { IntersectionTypes, ISignalFormValues } from "../../interfaces";
 
 const Intersaction3 = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = React.useState(false);
 
-  const onFinish = async (values: any) => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const onFinish = async (values: ISignalFormValues) => {
     try {
       setLoading(true);
       const data = {
@@ -15,13 +18,15 @@ const Intersaction3 = () => {
         signal2Time: Number(values.signal2),
         signal3Time: Number(values.signal3),
         signal4Time: Number(values.signal4),
-        intersectionType: "FOUR_WAY_TYPE2",
+        intersectionType: IntersectionTypes.FOUR_WAY_TYPE2,
       };
       const response = await postApi("/traffic-signal-configs", data);
-      message.success("Form submitted successfully!");
-      console.log("API Response:", response.data);
+      messageApi.success(
+        response.data.message ||
+          "Traffic signal configuration has been successfully applied."
+      );
     } catch (error) {
-      message.error("Failed to submit form. Please try again.");
+      messageApi.error("Failed to config time. Please try again.");
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -50,18 +55,20 @@ const Intersaction3 = () => {
     fetchInitialValues();
   }, []);
   return (
-    <Card
-      title="4 Way Intersection (Type-2) Signals"
-      className="intersection-card"
-      headStyle={undefined} // to avoid overriding the custom class
-    >
-      <SignalInputForm
-        signalCount={4}
-        loading={loading}
-        form={form}
-        onFinish={onFinish}
-      />
-    </Card>
+    <>
+      {contextHolder}
+      <Card
+        title="4 Way Intersection (Type-2) Signals"
+        className="intersection-card"
+      >
+        <SignalInputForm
+          signalCount={4}
+          loading={loading}
+          form={form}
+          onFinish={onFinish}
+        />
+      </Card>
+    </>
   );
 };
 

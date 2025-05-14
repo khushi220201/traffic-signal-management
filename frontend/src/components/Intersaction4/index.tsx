@@ -2,14 +2,16 @@ import { Card, Form, message } from "antd";
 import React, { useEffect } from "react";
 import { getApi, postApi } from "../../utils/api";
 import SignalInputForm from "../global/SignalInputForm";
+import { IntersectionTypes, ISignalFormValues } from "../../interfaces";
 
 type Props = {};
 
 const Intersaction4 = (props: Props) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = React.useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: ISignalFormValues) => {
     try {
       setLoading(true);
       const data = {
@@ -18,13 +20,15 @@ const Intersaction4 = (props: Props) => {
         signal3Time: Number(values.signal3),
         signal4Time: Number(values.signal4),
         signal5Time: Number(values.signal5),
-        intersectionType: "FIVE_WAY",
+        intersectionType: IntersectionTypes.FIVE_WAY,
       };
       const response = await postApi("/traffic-signal-configs", data);
-      message.success("Form submitted successfully!");
-      console.log("API Response:", response.data);
+      messageApi.success(
+        response.data.message ||
+          "Traffic signal configuration has been successfully applied."
+      );
     } catch (error) {
-      message.error("Failed to submit form. Please try again.");
+      messageApi.error("Failed to config time. Please try again.");
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -52,17 +56,17 @@ const Intersaction4 = (props: Props) => {
     fetchInitialValues();
   }, []);
   return (
-    <Card
-      title="5 Way Intersection Signals"
-      className="intersection-card"
-    >
-      <SignalInputForm
-        signalCount={5}
-        loading={loading}
-        form={form}
-        onFinish={onFinish}
-      />
-    </Card>
+    <>
+      {contextHolder}
+      <Card title="5 Way Intersection Signals" className="intersection-card">
+        <SignalInputForm
+          signalCount={5}
+          loading={loading}
+          form={form}
+          onFinish={onFinish}
+        />
+      </Card>
+    </>
   );
 };
 
