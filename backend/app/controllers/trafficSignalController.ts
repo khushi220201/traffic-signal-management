@@ -72,6 +72,22 @@ export const getConfigById = async (req: Request, res: Response) => {
 export const getConfigsByType = async (req: Request, res: Response) => {
   try {
     const { intersectionType } = req.params;
+
+    const VALID_INTERSECTION_TYPES: string[] = [
+      "THREE_WAY",
+      "FOUR_WAY_TYPE1",
+      "FOUR_WAY_TYPE2",
+      "FIVE_WAY",
+    ];
+
+    if (!VALID_INTERSECTION_TYPES.includes(intersectionType)) {
+      throw new Error(
+        `Invalid intersectionType. Must be one of: ${VALID_INTERSECTION_TYPES.join(
+          ", "
+        )}`
+      );
+    }
+
     const configs = await getTrafficSignalConfigsByType(
       intersectionType as IntersectionType
     );

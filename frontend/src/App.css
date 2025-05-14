@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -35,4 +36,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.intersection-card {
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.intersection-card .ant-card-head {
+  background: #f0f2f5;
+  border-bottom: 1px solid #e8e8e8;
+  border-radius: 8px 8px 0 0;
+}
+
+.intersection-form {
+  text-align: left;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-submit {
+  margin: 16px 0;
 }
