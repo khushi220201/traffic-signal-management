@@ -16,7 +16,7 @@ datasource db {
 
 model TrafficSignalConfig {
   id               String           @id @default(uuid())
-  intersectionType IntersectionType
+  intersectionType IntersectionType @unique
   signal1Time      Int
   signal2Time      Int
   signal3Time      Int
